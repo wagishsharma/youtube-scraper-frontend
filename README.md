@@ -1,57 +1,89 @@
-# CodeIgniter 4 Framework
+# Youtube Scraper Front-end
 
-## What is CodeIgniter?
+This is a front-end implementation of YouTube scraper to show trending videos in India using the YouTube Data API. 
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible, and secure. 
-More information can be found at the [official site](http://codeigniter.com).
+Framework used - [CodeIgniter4](https://codeigniter.com/user_guide/intro/index.html)
 
-This repository holds the distributable version of the framework,
-including the user guide. It has been built from the 
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+## Installation
 
-More information about the plans for version 4 can be found in [the announcement](http://forum.codeigniter.com/thread-62615.html) on the forums.
-
-The user guide corresponding to this version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/). 
+Clone the project to /var/www
 
 
-## Important Change with index.php
+```bash
+git clone https://github.com/wagishsharma/youtube-scraper-frontend
+cd youtube-scraper-frontend
+```
+create your env file 
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+``` cp env .env ```
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+Replace base_url in .env
 
-**Please** read the user guide for a better explanation of how CI4 works!
-The user guide updating and deployment is a bit awkward at the moment, but we are working on it!
+Grant write permission to youtube-scraper-backend/writable/ directory for storing the cache info
 
-## Repository Management
+Setup apache config pointing to /public directory of this repository.
 
-We use Github issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+```bash
+sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/example.com.conf
 
-This repository is a "distribution" one, built by our release preparation script. 
-Problems with it can be raised on our forum, or as issues in the main repository.
+sudo nano /etc/apache2/sites-available/example.com.conf
+
+
+```
+Your 'example.com.conf' file should look like this 
+```
+
+<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/youtube-scraper-frontend/public/
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+```
+Enable new config
+
+``` bash
+sudo a2ensite example.com.conf
+```
+
+Disable default config
+
+```bash
+sudo a2dissite 000-default.conf
+
+```
+
+Restart apache
+```
+sudo systemctl restart apache2
+
+```
+or
+
+```bash
+sudo service apache2 restart
+
+```
+
+
+Enable mod_rewrite for routing
+
+```sudo a2enmod rewrite```
+
+You must restart Apache once you make any change to its configuration. To do this, type the command below on a terminal window:
+
+```sudo systemctl restart apache2```
+
+## Usage
+
+Your site is now live on http://{your-ip}/
+
+## Demo
+
+[Click here for demo](http://134.209.144.213/)
 
 ## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-We welcome contributions from the community.
-
-Please read the [*Contributing to CodeIgniter*](https://github.com/codeigniter4/CodeIgniter4/blob/develop/contributing.md) section in the development repository.
-
-## Server Requirements
-
-PHP version 7.2 or higher is required, with the following extensions installed: 
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php)
-- xml (enabled by default - don't turn it off)
+Please make sure to update tests as appropriate.
