@@ -9,7 +9,7 @@ class Home extends BaseController
 	{
 
 		$data['title'] = 'Home';
-		$data['videos'] = $this->genericAPIcall('http://localhost:8080/api/trending');
+		$data['videos'] = $this->genericAPIcall(getenv('SERVER_URL').'api/trending');
 	    echo view('templates/header', $data);
 	    echo view('pages/home', $data);
 	    echo view('templates/footer', $data);
@@ -18,7 +18,7 @@ class Home extends BaseController
 	public function show_video($id=""){
 		
 		$data['title'] = 'Video';
-		$data['video_details'] = $this->genericAPIcall('http://localhost:8080/api/videos/'.$id);
+		$data['video_details'] = $this->genericAPIcall(getenv('SERVER_URL').'api/videos/'.$id);
 		echo view('templates/header', $data);
 	    echo view('pages/video_details', $data);
 	    echo view('templates/footer', $data);
@@ -26,7 +26,7 @@ class Home extends BaseController
 	}
 	public function refresh_popular_videos(){
 		
-		$this->genericAPIcall('http://localhost:8080/api/trending','POST');
+		$this->genericAPIcall(getenv('SERVER_URL').'api/trending','POST');
 		return $this->index();
 		
 	}

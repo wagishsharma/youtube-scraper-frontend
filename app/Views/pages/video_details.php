@@ -11,6 +11,13 @@
 			</div>
 			<div class="video-details">
 				<h4><?=$video_details->video->title;?></h4>
+        <form action="<?=getenv('SERVER_URL')?>api/videos/<?=$video_details->video->videoId?>/download/" method="GET">
+            
+            <div class="form-group text-center">
+                <input class="btn btn-primary" type="submit" value="Download" />
+            </div>
+        </form>
+        
         <div>
         
         <small><?=isset($video_details->video->viewCount)?shorten_number($video_details->video->viewCount)." views":""?></small>
