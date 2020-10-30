@@ -46,4 +46,10 @@ class BaseController extends Controller
 		// $this->session = \Config\Services::session();
 	}
 
+	public function genericAPIcall($url,$method='GET',$params=[]){
+		$client = \Config\Services::curlrequest();
+		$response = $client->request($method, $url,$params);
+		return json_decode($response->getBody());
+	}
+
 }
