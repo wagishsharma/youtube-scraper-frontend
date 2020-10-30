@@ -1,6 +1,6 @@
 <?php namespace App\Controllers;
 
-class Home extends BaseController
+class PopularVideo extends BaseController
 {	
 	public function __construct(){
 		parent::__construct();
@@ -8,7 +8,7 @@ class Home extends BaseController
 	public function index()
 	{
 
-		$data['title'] = 'Home';
+		$data['title'] = 'Popular Videos';
 		$data['videos'] = $this->genericAPIcall(getenv('SERVER_URL').'api/trending');
 	    echo view('templates/header', $data);
 	    echo view('pages/home', $data);
@@ -17,8 +17,9 @@ class Home extends BaseController
 
 	public function show_video($id=""){
 		
-		$data['title'] = 'Video';
+		
 		$data['video_details'] = $this->genericAPIcall(getenv('SERVER_URL').'api/videos/'.$id);
+		$data['title'] = $data['video_details']->video->title;
 		echo view('templates/header', $data);
 	    echo view('pages/video_details', $data);
 	    echo view('templates/footer', $data);

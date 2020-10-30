@@ -16,7 +16,7 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php'))
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Home');
+$routes->setDefaultController('PopularVideo');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
@@ -30,9 +30,9 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
-$routes->get('/refresh-trending', 'Home::refresh_popular_videos');
-$routes->get('/video/(:any)', 'Home::show_video/$1');
+$routes->get('/', 'PopularVideo::index');
+$routes->get('/refresh-trending', 'PopularVideo::refresh_popular_videos');
+$routes->get('/video/(:any)', 'PopularVideo::show_video/$1');
 //$routes->get('(:any)', 'Pages::view/$1');
 /**
  * --------------------------------------------------------------------
