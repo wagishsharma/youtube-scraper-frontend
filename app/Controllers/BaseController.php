@@ -52,4 +52,10 @@ class BaseController extends Controller
 		return json_decode($response->getBody());
 	}
 
+	public function displayPage($page_location,$data=[]){
+		echo view('templates/header', $data);
+	    echo view($page_location, $data);
+	    echo view('templates/footer', $data);
+	}
+
 }
