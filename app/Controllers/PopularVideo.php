@@ -7,8 +7,11 @@ class PopularVideo extends BaseController
 	}
 	public function index()
 	{
+		return $this->show_all_popular_videos();
+	}
 
-		$data['title'] = 'Popular Videos';
+	public function show_all_popular_videos(){
+		$data['title'] = 'Videos';
 		$data['videos'] = $this->genericAPIcall(getenv('SERVER_URL').'api/trending');
 	    echo view('templates/header', $data);
 	    echo view('pages/home', $data);
@@ -28,7 +31,7 @@ class PopularVideo extends BaseController
 	public function refresh_popular_videos(){
 		
 		$this->genericAPIcall(getenv('SERVER_URL').'api/trending','POST');
-		return $this->index();
+		return $this->show_all_popular_videos();
 		
 	}
 
